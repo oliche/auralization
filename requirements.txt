@@ -1,0 +1,5 @@
+simpleaudio
+matplotlib
+numpy
+pytest
+scipy
