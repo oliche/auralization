@@ -50,8 +50,7 @@ class HRTF:
         Scales the amplitude using spherical divergence
         """
         x, y, z = sph2cart(RADIUS, elevation, azimuth)
-        wind = np.argmin(np.sqrt((x - self.x) ** 2 + (y - self.y) ** 2 + (z - self.z) ** 2))
-        return self.waveform[wind, :, :] * (RADIUS ** 3) / (r ** 3)
+        return self.get_hrtf_cart(x, y, z)
 
     def get_hrtf_cart(self, x, y, z):
         """
@@ -60,7 +59,7 @@ class HRTF:
         """
         r = np.sqrt(x ** 2 + y ** 2 + z ** 2)
         wind = np.argmin(np.sqrt((x - self.x) ** 2 + (y - self.y) ** 2 + (z - self.z) ** 2))
-        return self.waveform[wind, :, :] * (RADIUS ** 3) / (r ** 3)
+        return self.waveform[wind, :, :] / np.sqrt(r)
 
 
 def sph2cart(r, elevation, azimuth):
